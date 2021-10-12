@@ -14,5 +14,5 @@ export default function loginApi(req: NextApiRequest, res: NextApiResponse) {
       error: true,
       errorMessage: "Wrong login credentials. Please provide correct email."
     });
-  }, 2000);
+  }, 8000);
 }
