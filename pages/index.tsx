@@ -1,10 +1,18 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IndexMFAInput from "../components/IndexMFAInput";
 import IndexEmailInput from "../components/IndexEmailInput";
+import { useRouter } from "next/router";
 
 export default function Index() {
   const [needMFA, setNeedMFA] = useState<boolean>(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem("login")) {
+      router.push("/home");
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center py-2">
@@ -17,13 +25,13 @@ export default function Index() {
         <div>
           <h1 className="text-6xl font-bold pb-32">
             Welcome to{" "}
-            <a className="text-blue-600" href="https://finary.eu/app">
+            <a className="text-yellow-finary" href="https://finary.eu/app">
               Finary
             </a>
           </h1>
         </div>
 
-        <div className="flex flex-1 flex-row flex-wrap justify-center items-center">
+        <div className="flex flex-row flex-wrap justify-center items-center">
           {needMFA ? (
             <IndexMFAInput />
           ) : (

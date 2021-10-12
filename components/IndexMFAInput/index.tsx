@@ -39,6 +39,7 @@ const IndexMFAInput: React.FC = () => {
         maxAttempts: MAX_RETRY
       })) as PostMFAReturn;
       if (res?.login === true) {
+        localStorage.setItem("login", "true");
         router.push("/home");
       }
     } catch (e) {
@@ -48,15 +49,16 @@ const IndexMFAInput: React.FC = () => {
     }
   };
   return (
-    <div>
+    <form>
       <p className="mt-3 text-2xl">Please provide the MFA code</p>
-      <div className="flex flex-1 flex-row flex-wrap justify-center items-center">
+      <div className="flex flex-row flex-wrap justify-center items-center">
         <MyInput
           maxLength={6}
           value={MFA}
           onChange={(e) => setMFA(e.target.value)}
           placeholder="123456"
           type={InputType.text}
+          autofocus
         />
 
         <MyButton disabled={isLoading || !isValid} onClick={handleLoginClick}>
@@ -74,7 +76,7 @@ const IndexMFAInput: React.FC = () => {
       {errorMessage && (
         <p className="mt-2 text-lg text-red-800">{errorMessage}</p>
       )}
-    </div>
+    </form>
   );
 };
 

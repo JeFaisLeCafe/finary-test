@@ -46,6 +46,7 @@ const IndexEmailInput: React.FC<IndexEmailInputProps> = ({ setNeedMFA }) => {
       if (res?.needMFA) {
         setNeedMFA(true);
       } else {
+        localStorage.setItem("login", "true");
         router.push("/home");
       }
     } catch (e) {
@@ -55,9 +56,9 @@ const IndexEmailInput: React.FC<IndexEmailInputProps> = ({ setNeedMFA }) => {
     }
   };
   return (
-    <div>
+    <form>
       <p className="mt-3 text-2xl">Get started by login in</p>
-      <div className="flex flex-1 flex-row flex-wrap justify-center items-center">
+      <div className="flex flex-row flex-wrap justify-center items-center">
         <MyInput
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -77,9 +78,9 @@ const IndexEmailInput: React.FC<IndexEmailInputProps> = ({ setNeedMFA }) => {
       </div>
 
       {errorMessage && (
-        <p className="mt-2 text-lg text-red-800">{errorMessage}</p>
+        <p className="mt-2 text-sm text-red-800">{errorMessage}</p>
       )}
-    </div>
+    </form>
   );
 };
 
